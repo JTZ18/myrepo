@@ -1,0 +1,7 @@
+venv
+**/__pycache__/
+common_voice
+common_voice.zip
+cv-valid-dev
+data
+.DS_Store
