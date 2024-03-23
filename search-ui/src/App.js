@@ -28,7 +28,7 @@ import {
 
 const { hostIdentifier, searchKey, endpointBase, engineName } = getConfig();
 const connector = new ElasticsearchAPIConnector({
-  host: "http://localhost:9200",
+  host: process.env.REACT_APP_ELASTICSEARCH_URL,
   index: "cv-transcriptions"
 });
 // const config = {

@@ -57,6 +57,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - REACT_APP_ELASTICSEARCH_URL=http://localhost:9200
     networks:
       - elastic
 
