@@ -5,7 +5,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Add the current directory contents into the container at /app
-ADD ./asr/asr-api.py /app
+ADD ./asr-api.py /app
 ADD ./requirements.txt /app
 
 # Install libsndfile1
