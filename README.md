@@ -191,7 +191,7 @@ This script indexes the CSV file data into the Elasticsearch service, ensuring t
 NOTE: Due to relative import errors, please run the script from the root directory of the project.
 
 #### Step 4: Accessing the Frontend Application
-After the services are up and the data has been indexed, the frontend application will be accessible at `http://localhost:3000`. This URL serves the Search-UI React app, through which users can perform search operations on the indexed data.
+After the services are up and the data has been indexed, the frontend application will be accessible at `http://<ec2-public-ip>:3000`. This URL serves the Search-UI React app, through which users can perform search operations on the indexed data.
 
 ## Task 7: Cloud Deployment Link
 The final project has been deployed on an AWS EC2 instance. You can access the application using the following link: [here](http://ec2-54-79-211-193.ap-southeast-2.compute.amazonaws.com:3000)
