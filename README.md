@@ -33,6 +33,7 @@ To run the server, use the `uvicorn` command:
 ```bash
 uvicorn asr.asr-api:app --reload
 ```
+NOTE: Due to relative import errors, please run the script from the root directory of the project.
 
 ## Downloading the Data
 
@@ -83,6 +84,7 @@ If you would like to run the script, use the following command from the root dir
 ```bash
 python asr/cv-decode.py
 ```
+NOTE: Due to relative import errors, please run the script from the root directory of the project.
 
 ## Task 2e: Containerizing the FastAPI App
 
@@ -109,4 +111,81 @@ curl -X POST "http://localhost:80/asr" -H "accept: application/json" -H "Content
 
 **Note:** Since we are using FastAPI's `UploadFile` class, the files uploaded to the API are temporary files that will be discarded after each API call has finished execution.
 
+## Task 3: Deployment Design
+PDF report can be found in the `deployment-design/design.pdf` file.
 
+## Task 4: Elasticsearch Backend
+A docker compose file spins up an Elasticsearch cluster with two nodes. The `cv-index.py` script indexes the `asr/cv-valid-dev-updated.csv` file into the Elasticsearch cluster.
+
+#### Step 1: Spin up the Elasticsearch cluster
+```bash
+cd elastic-backend
+docker-compose up
+```
+
+#### Step 2: Index the data
+```bash
+cd ..
+python elastic-backend/cv-index.py
+```
+NOTE: Due to relative import errors, please run the script from the root directory of the project.
+
+## Task 5: Search UI
+The Search UI is a react app taken from the search-ui [docs](https://docs.elastic.co/search-ui/tutorials/elasticsearch#step-4-setup-cra-for-search-ui). The docs provided a sample template found [here](https://codeload.github.com/elastic/app-search-reference-ui-react/tar.gz/master) for searching a movie database. The app config has been modified for our use case of `cv-transcriptions`. A docker-compose file has been added to the to spin up the Search UI and Elasticsearch cluster together.
+
+#### Step 1: Launching the Services
+Navigate to the `search-ui` directory of the project where the `docker-compose.yaml` file is located. Execute the following command to start the services:
+```bash
+docker-compose up
+```
+
+#### Step 2: Indexing Data
+Once the Elasticsearch service is running, it's necessary to index the dataset into Elasticsearch for the search functionality to work. Navigate to the project root directory and run the following command:
+```bash
+python elastic-backend/cv-index.py
+```
+This script indexes the CSV file data into the Elasticsearch service, ensuring that the search functionality is operational.
+
+NOTE: Due to relative import errors, please run the script from the root directory of the project.
+
+#### Step 4: Accessing the Frontend Application
+After the services are up and the data has been indexed, the frontend application will be accessible at `http://localhost:3000`. This URL serves the Search-UI React app, through which users can perform search operations on the indexed data.
+
+
+## Task 6: Cloud Deployment
+
+### Overview
+This document provides an improved overview of the cloud deployment process for a scalable and highly available application. While a more detailed and complex deployment strategy is outlined in the `deployment-design/design.pdf` document, this guide focuses on a simplified approach for the technical assessment with limited cloud resources.
+
+### Deployment Strategy
+Due to resource constraints, we've opted for a straightforward deployment utilizing Docker Compose on a single Amazon EC2 instance. This method allows us to demonstrate the application's functionality in a cloud environment without the complexity and cost associated with a full-scale deployment.
+
+### Project Structure
+The core components of our application are divided as follows:
+- **Frontend:** A React application serving as the user interface, configured to communicate with the Elasticsearch backend.
+- **Backend:** A 2-node Elasticsearch cluster responsible for indexing and searching data efficiently.
+
+The `docker-compose.yaml` file, located in the root directory of the project, orchestrates the setup and interconnection of these components.
+
+### Deployment Process
+
+#### Step 1: Preparing the Environment
+Ensure that Docker and Docker Compose are installed on your EC2 instance. Clone the project repository to your instance to get started.
+
+#### Step 2: Launching the Services
+Navigate to the root directory of the project where the `docker-compose.yaml` file is located. Execute the following command to start the services:
+```bash
+docker-compose up
+```
+
+#### Step 3: Indexing Data
+Once the Elasticsearch service is running, it's necessary to index the dataset into Elasticsearch for the search functionality to work. Run the following command:
+```bash
+python elastic-backend/cv-index.py
+```
+This script indexes the CSV file data into the Elasticsearch service, ensuring that the search functionality is operational.
+
+NOTE: Due to relative import errors, please run the script from the root directory of the project.
+
+#### Step 4: Accessing the Frontend Application
+After the services are up and the data has been indexed, the frontend application will be accessible at `http://localhost:3000`. This URL serves the Search-UI React app, through which users can perform search operations on the indexed data.
