@@ -172,6 +172,9 @@ The `docker-compose.yaml` file, located in the root directory of the project, or
 #### Step 1: Preparing the Environment
 Ensure that Docker and Docker Compose are installed on your EC2 instance. Clone the project repository to your instance to get started.
 
+- Be sure to also change the env variable `REACT_APP_ELASTICSEARCH_URL` in the `docker-compose.yaml` file to the public IP of the EC2 instance.
+- Be sure to change the endpoint in the `search-ui/src/config/engine.json` file to the public IP of the EC2 instance.
+
 #### Step 2: Launching the Services
 Navigate to the root directory of the project where the `docker-compose.yaml` file is located. Execute the following command to start the services:
 ```bash
