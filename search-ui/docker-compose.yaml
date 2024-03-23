@@ -11,7 +11,7 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - "http.cors.enabled=true"
-      - "http.cors.allow-origin=http://localhost:3000"
+      - "http.cors.allow-origin=*"
       - "http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE"
       - "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,x-elastic-client-meta"
     ulimits:
@@ -35,7 +35,7 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - "http.cors.enabled=true"
-      - "http.cors.allow-origin=http://localhost:3000"
+      - "http.cors.allow-origin=*"
       - "http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE"
       - "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,x-elastic-client-meta"
     ulimits:
@@ -57,7 +57,6 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    command: ["/app/entrypoint.sh"]
     networks:
       - elastic
 
